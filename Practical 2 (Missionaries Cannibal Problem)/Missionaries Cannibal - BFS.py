@@ -17,9 +17,27 @@ class State():
     def __eq__(self, other):
         return self.cannibals == other.cannibals and self.missionaries == other.missionaries and self.boat == other.boat
 
+def possible_next_moves():
+    pass
+
 def start_game():
-    path = set()
+    unique_states = set()
     initial_state = State(3,3,1)
+
+    path = []
+    queue = []
+    queue.push(initial_state)
+
+    while len(queue) != 0:
+        current_state = queue.pop()    
+        next_states = possible_next_moves(current_state)
+        
+        for state in next_states:
+            if state in unique_states:
+                continue
+            else:
+                pass
+
 
     
 
