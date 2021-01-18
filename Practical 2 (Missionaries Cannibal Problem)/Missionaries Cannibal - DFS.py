@@ -24,6 +24,13 @@ def possible_paths(state):
 
     possible_next_state = []
 
+    no_of_cannibals = state.cannibals
+    no_of_missionaries = state.missionaries
+
+    if boat == 0:
+        no_of_cannibals = 3 - no_of_cannibals
+        no_of_missionaries = 3 - no_of_missionaries
+
     for operation in possible_operations:
         pass
 
