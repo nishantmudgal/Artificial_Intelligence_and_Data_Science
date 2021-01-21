@@ -46,6 +46,11 @@ class State():
     def __eq__(self, other):
         return self.cannibals == other.cannibals and self.missionaries == other.missionaries and self.boat == other.boat
 
+    #define string representation of the class
+    def __str__(self):
+        return "( " + str(self.cannibals) + ", " + str(self.missionaries) + ", " + str(self.boat)+ " )"
+
+
 #Returns list of all the possible next state
 def possible_paths(state):
 
@@ -108,23 +113,15 @@ def dfs(root):
 #Function to print all the possible paths from start state to goal state
 def print_possible_path(state):
 
-    current_path = []
+    print("\nRepresentation = ( Number of Cannibals, Number of Missionaries, Position of the Boat )")
+    print("Start State = ( 3, 3, 1) \nGoal State = ( 0, 0, 0)\n")
 
-    def print_DFS(state):
+    print("Path:")
+    while not state.is_goal_state():
+        print(state , end = " -> ")
+        state = state.next[0]
 
-        current_path.append([state.cannibals, state.missionaries, state.boat])
-
-        if state.is_goal_state():
-            print(*current_path, sep = ' -> ', end = '\n\n')
-            return
-
-        for next_state in state.next:
-            print_DFS(next_state)
-
-
-
-    print_DFS(state)
-    
+    print(state, end = '\n\n')
 
 #Main function to set initial state and start DFS on the problem to find all the possible paths
 def start_game():
