@@ -11,17 +11,17 @@ class State():
 
     def is_valid_state(self):
 
-        if ( self.position_q1 == self.position_q2 or abs(self.position_q1 - self.position_q2) == 1 ) and self.position_q2 == -1:
+        if ( self.position_q1 == self.position_q2 or abs(self.position_q1 - self.position_q2) == 1 ) and self.position_q2 != -1:
             return False
-        if ( self.position_q1 == self.position_q3 or abs(self.position_q1 - self.position_q3) == 2 ) and self.position_q3 == -1:
+        if ( self.position_q1 == self.position_q3 or abs(self.position_q1 - self.position_q3) == 2 ) and self.position_q3 != -1:
             return False
-        if ( self.position_q1 == self.position_q4 or abs(self.position_q1 - self.position_q4) == 3 ) and self.position_q4 == -1:
+        if ( self.position_q1 == self.position_q4 or abs(self.position_q1 - self.position_q4) == 3 ) and self.position_q4 != -1:
             return False
-        if ( self.position_q2 == self.position_q3 or abs(self.position_q2 - self.position_q3) == 1 ) and self.position_q3 == -1:
+        if ( self.position_q2 == self.position_q3 or abs(self.position_q2 - self.position_q3) == 1 ) and self.position_q3 != -1:
             return False
-        if ( self.position_q2 == self.position_q4 or abs(self.position_q2 - self.position_q4) == 2 ) and self.position_q4 == -1:
+        if ( self.position_q2 == self.position_q4 or abs(self.position_q2 - self.position_q4) == 2 ) and self.position_q4 != -1:
             return False
-        if ( self.position_q3 == self.position_q4 or abs(self.position_q3 - self.position_q4) == 1 ) and self.position_q4 == -1:
+        if ( self.position_q3 == self.position_q4 or abs(self.position_q3 - self.position_q4) == 1 ) and self.position_q4 != -1:
             return False
 
         return True
@@ -54,6 +54,10 @@ class State():
         else:
             print("Invalid Argument passed to set_coordinated function " + queen_number)
 
+    def __str__(self):
+        return ('(' + str(self.position_q1) + ", " + str(self.position_q2) + ", " + 
+                 str(self.position_q3) + ", " + str(self.position_q4) + ")")
+
 def DFS(state, queen_number):
 
     if queen_number == 5:
@@ -64,12 +68,43 @@ def DFS(state, queen_number):
 
     valid_column_list = state.valid_column()
 
+    path_found = False
+
     for next_column in valid_column_list:
         next_state = copy.deepcopy(state)
         next_state.set_position(queen_number, next_column)
 
         if DFS(next_state, queen_number + 1):
             state.next.append(next_state)
+            path_found = True
+
+    return path_found
+
+
+def printAllPaths(state):
+
+    current_path = []
+
+    def path_dfs(current_state):
+
+        current_path.append(current_state)
+        
+        if len(current_state.next) == 0:
+            
+            print("Path :")
+            print(*current_path, sep=" -> ", end="\n\n")
+    
+            if len(current_path) != 0:
+                current_path.pop()
+            return
+
+        for next in current_state.next:
+            path_dfs(next)
+            
+            if len(current_path) != 0:
+                current_path.pop()
+
+    path_dfs(state)
 
 
 def main():
@@ -77,7 +112,7 @@ def main():
     
     DFS(start_state, 1)
 
-    print(start_state.next)
+    printAllPaths(start_state)
 
 if __name__ == "__main__":
     main()
