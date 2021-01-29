@@ -1,4 +1,12 @@
-import copy
+'''
+The N Queen is the problem of placing N chess queens on an N×N chessboard so that no two queens attack each other.
+
+Queens can attack each other if they are in same row, column or diagonal.
+Goal is to find all the possible states where no 2 queens can attack each other.
+Here i have used DFS to solve this problem.
+
+-Nishant Mudgal
+'''
 
 class State():
 
@@ -58,6 +66,10 @@ class State():
         return ('(' + str(self.position_q1) + ", " + str(self.position_q2) + ", " + 
                  str(self.position_q3) + ", " + str(self.position_q4) + ")")
 
+    def __repr__(self):
+        return ('(' + str(self.position_q1) + ", " + str(self.position_q2) + ", " + 
+                 str(self.position_q3) + ", " + str(self.position_q4) + ")")
+
 def DFS(state, queen_number):
 
     if queen_number == 5:
@@ -71,7 +83,7 @@ def DFS(state, queen_number):
     path_found = False
 
     for next_column in valid_column_list:
-        next_state = copy.deepcopy(state)
+        next_state = State(state.position_q1, state.position_q2, state.position_q3, state.position_q4)
         next_state.set_position(queen_number, next_column)
 
         if DFS(next_state, queen_number + 1):
@@ -87,23 +99,19 @@ def printAllPaths(state):
 
     def path_dfs(current_state):
 
-        current_path.append(current_state)
-        
         if len(current_state.next) == 0:
-            
             print("Path :")
             print(*current_path, sep=" -> ", end="\n\n")
-    
-            if len(current_path) != 0:
-                current_path.pop()
             return
 
         for next in current_state.next:
+            current_path.append(next)
             path_dfs(next)
-            
             if len(current_path) != 0:
                 current_path.pop()
 
+    print("Representation : (Column number of q1, Column number of q2, Column number of q3, Column number of q4)", end="\n\n")
+    current_path.append(state)
     path_dfs(state)
 
 
@@ -116,9 +124,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
 
