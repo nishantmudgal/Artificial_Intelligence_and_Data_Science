@@ -3,7 +3,7 @@ The N Queen is the problem of placing N chess queens on an N×N chessboard so th
 
 Queens can attack each other if they are in same row, column or diagonal.
 Goal is to find all the possible states where no 2 queens can attack each other.
-Here i have used DFS to solve this problem.
+Here, i have used DFS to solve this problem.
 
 -Nishant Mudgal
 '''
