@@ -21,7 +21,7 @@ class Node():
 
     def get_next_state(self, id):
         if id == self.id:
-            return [self]
+            return [self, 0]
 
         return self.next[str(id)]
 

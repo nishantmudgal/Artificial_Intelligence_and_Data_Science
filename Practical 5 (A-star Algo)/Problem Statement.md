@@ -11,3 +11,18 @@ A* algorithm has 3 parameters:
     f : it is the sum of g and h. So, f = g + h
 
 The way that the algorithm makes its decisions is by taking the f-value into account. The algorithm selects the smallest f-valued cell and moves to that cell. This process continues until the algorithm reaches its goal cell.
+
+GRAPH:
+Start State = S     Goal State = D
+
+                            (S,3)
+                          /      \
+                       1 /        \4
+                        /     2    \
+                   (A,6) ---------- (B,2)
+                      |  \___        |
+                    12|     5\__     |2
+                      |         \__  |
+                   (D,0) ---------- (C,1)
+                            3
+
