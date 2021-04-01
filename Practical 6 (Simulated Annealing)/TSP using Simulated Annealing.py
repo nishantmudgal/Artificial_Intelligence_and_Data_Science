@@ -55,35 +55,35 @@ def simulated_annealing(initial_state):
 
     func_get_cost, func_get_neighbour, func_print_state = get_function(initial_state)
 
-    initial_temp = 150
+    initial_temp = 300
     final_temp = 0
     alpha = 10
     
     current_temp = initial_temp
 
     current_state = initial_state
-    solution = current_state
     func_print_state(current_state, True)
 
     while current_temp > final_temp:
         
-        func_print_state(current_state, False)
-        neighbor = func_get_neighbour(current_state)
+        inner_itr = 3
+        while inner_itr > 0:
 
-        cost_diff = func_get_cost(current_state) - func_get_cost(neighbor)
+            func_print_state(current_state, False)
+            neighbor = func_get_neighbour(current_state)
 
-        if cost_diff > 0:
-            current_state = neighbor
-        else:
-            if random.uniform(0, 1) < math.exp(-cost_diff / current_temp):
+            cost_diff = func_get_cost(current_state) - func_get_cost(neighbor)
+
+            if cost_diff > 0:
                 current_state = neighbor
+            elif random.uniform(0, 1) < math.exp(-cost_diff / current_temp):
+                    current_state = neighbor
 
-
-        if func_get_cost(current_state) < func_get_cost(solution):
-            solution = current_state
+            inner_itr -= 1
+        
         current_temp -= alpha
 
-    return solution, func_get_cost(solution)
+    return current_state, func_get_cost(current_state)
     
 def main():
 
