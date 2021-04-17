@@ -62,7 +62,6 @@ class State():
 
 def best_first_search(state):
     queue = [state]
-    heuristic_lambda = lambda x : x.heuristic
     itr = 0
     while len(queue) > 0 and itr < 100:
         current_state = queue[0]
@@ -71,7 +70,7 @@ def best_first_search(state):
             return current_state.path
         next_states = current_state.get_next_states()
         queue.extend(next_states)
-        queue = sorted(queue, key = heuristic_lambda)
+        queue = sorted(queue, key = lambda x : x.heuristic)
         itr += 1
 
 if __name__ == "__main__":
